@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mrmicaiah.github.io/built-by-denny/sitemap.xml
