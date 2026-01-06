@@ -50,7 +50,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         source: 'built-by-denny',
         funnel: 'website-contact-form',
         formSelector: '#contact-form',
-        customFields: ['phone', 'grant-status', 'message'],
         successMessage: 'Thanks for reaching out! Denny will be in touch shortly.',
         errorMessage: 'Something went wrong. Please try again or call (256) 808-2100.'
     };
@@ -72,22 +71,26 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 btn.textContent = 'Sending...';
             }
 
-            // Build payload
+            // Get form values
+            const name = form.querySelector('#name')?.value || '';
+            const email = form.querySelector('#email')?.value || '';
+            const phone = form.querySelector('#phone')?.value || '';
+            const grantStatus = form.querySelector('#grant-status')?.value || 'Not specified';
+            const message = form.querySelector('#message')?.value || '';
+
+            // Build payload for subscriber
             const payload = {
-                email: form.querySelector('#email')?.value,
+                email: email,
                 list: CONFIG.list,
                 source: CONFIG.source,
                 funnel: CONFIG.funnel,
-                name: form.querySelector('#name')?.value,
-                notifyOwner: 'Dennis@builtbydenny.com',
-                metadata: {}
+                name: name,
+                metadata: {
+                    phone: phone,
+                    'grant-status': grantStatus,
+                    message: message
+                }
             };
-
-            // Add custom fields to metadata
-            CONFIG.customFields.forEach(field => {
-                const el = form.querySelector(`#${field}`) || form.querySelector(`[name="${field}"]`);
-                if (el?.value) payload.metadata[field] = el.value;
-            });
 
             try {
                 const resp = await fetch(API_URL, {
@@ -99,7 +102,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 const data = await resp.json();
 
                 if (resp.ok) {
-                    const name = form.querySelector('#name')?.value || 'there';
                     form.innerHTML = `
                         <div class="form-success">
                             <svg viewBox="0 0 24 24" width="60" height="60" fill="#f5a623">
@@ -107,6 +109,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                             </svg>
                             <h3>Message Sent!</h3>
                             <p>Thanks for reaching out, ${name}. Denny will be in touch with you shortly.</p>
+                            <p class="form-success-note">Check your email for a confirmation.</p>
                         </div>
                     `;
                 } else {
