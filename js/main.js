@@ -55,38 +55,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalBtnText = submitBtn.innerHTML;
         
         // Get form data
-        const formData = {
-            name: form.querySelector('#name').value,
-            phone: form.querySelector('#phone').value,
-            email: form.querySelector('#email').value,
-            grantStatus: form.querySelector('#grant-status').value,
-            message: form.querySelector('#message').value,
-            source: 'Built by Denny Website',
-            timestamp: new Date().toISOString()
-        };
+        const formData = new FormData(form);
+        const name = formData.get('name');
 
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = 'Sending...';
 
         try {
-            // Send to our API endpoint
-            const response = await fetch('https://productivity-mcp-server.micaiah-tasks.workers.dev/api/contact-form', {
+            // Send to Formspree
+            const response = await fetch('https://formspree.io/f/xwpkgjkr', {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    business: 'built-by-denny',
-                    businessEmail: 'Dennis@builtbydenny.com',
-                    businessName: 'Built by Denny',
-                    formData: formData,
-                    welcomeEmail: {
-                        subject: 'Thanks for contacting Built by Denny!',
-                        preheader: 'We received your inquiry about VA SAH Grant construction',
-                        body: `Hi ${formData.name},\n\nThank you for reaching out to Built by Denny! We received your inquiry and will be in touch within 1 business day.\n\nIn the meantime, feel free to call us at (256) 808-2100 if you have any urgent questions about your VA SAH Grant project.\n\nWe look forward to helping you build your accessible home.\n\nBest regards,\nDenny Liuzzo\nBuilt by Denny\nVA SAH Grant Specialist`
-                    }
-                })
+                    'Accept': 'application/json'
+                }
             });
 
             if (response.ok) {
@@ -97,8 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                         </svg>
                         <h3>Message Sent!</h3>
-                        <p>Thanks for reaching out, ${formData.name}. Denny will be in touch with you shortly.</p>
-                        <p class="form-success-note">Check your email for a confirmation.</p>
+                        <p>Thanks for reaching out, ${name}. Denny will be in touch with you shortly.</p>
                     </div>
                 `;
             } else {
@@ -106,25 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } catch (error) {
             console.error('Form error:', error);
-            // Fallback - send via mailto
-            const mailtoLink = `mailto:Dennis@builtbydenny.com?subject=New Website Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
-                `New contact form submission:\n\n` +
-                `Name: ${formData.name}\n` +
-                `Phone: ${formData.phone}\n` +
-                `Email: ${formData.email}\n` +
-                `Grant Status: ${formData.grantStatus}\n` +
-                `Message: ${formData.message}`
-            )}`;
-            
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
             
-            // Show fallback message
+            // Show error message
             const errorDiv = document.createElement('div');
             errorDiv.className = 'form-error';
-            errorDiv.innerHTML = `
-                <p>There was an issue sending your message. Please try again or <a href="${mailtoLink}">click here to email us directly</a>.</p>
-            `;
+            errorDiv.innerHTML = `<p>There was an issue sending your message. Please try again or call us at (256) 808-2100.</p>`;
             
             const existingError = form.querySelector('.form-error');
             if (existingError) existingError.remove();
