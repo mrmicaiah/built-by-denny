@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Micaiah Bussey - Thriller Author. Vote on story openings, follow the writing journey, join the community.">
+    <title>Micaiah Bussey | Thriller Writer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-card-hover: #222230;
+            --text-primary: #e8e8ec;
+            --text-secondary: #9090a0;
+            --text-muted: #606070;
+            --accent: #c9a227;
+            --accent-dim: #a08020;
+            --accent-glow: rgba(201, 162, 39, 0.15);
+            --border: #2a2a38;
+            --border-light: #3a3a48;
+            --danger: #cc4444;
+            --success: #44aa66;
+            --font-serif: 'Crimson Pro', Georgia, serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 18px;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header {
+            padding: 32px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero-name {
+            font-size: clamp(48px, 10vw, 80px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .hero-excerpt {
+            max-width: 650px;
+            margin: 0 auto 24px;
+            text-align: left;
+            background: var(--bg-card);
+            border-left: 3px solid var(--accent);
+            padding: 28px 32px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .hero-excerpt p {
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .hero-excerpt p:last-child {
+            margin-bottom: 0;
+        }
+
+        .hero-book-credit {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 48px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            color: var(--bg-primary);
+            background: var(--accent);
+            padding: 16px 32px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .hero-cta:hover {
+            background: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .section-intro {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 650px;
+            margin-bottom: 48px;
+        }
+
+        .voting-intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .openings-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .opening-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .opening-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+            transform: translateX(4px);
+        }
+
+        .opening-card.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        .opening-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            color: var(--accent);
+        }
+
+        .opening-number {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .opening-text {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .opening-text p {
+            margin-bottom: 16px;
+        }
+
+        .opening-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .vote-prompt {
+            text-align: center;
+            margin-top: 48px;
+            padding: 32px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .vote-prompt p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .vote-count {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .capture-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .capture-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .capture-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .capture-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .capture-form {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 14px 16px;
+            font-family: var(--font-serif);
+            font-size: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .checkbox-group {
+            margin-bottom: 32px;
+        }
+
+        .checkbox-group-title {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            margin-top: 4px;
+            accent-color: var(--accent);
+        }
+
+        .checkbox-label {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .checkbox-label strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px 32px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            color: var(--bg-primary);
+            background: var(--accent);
+            border: none;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--text-primary);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .capture-success {
+            display: none;
+            text-align: center;
+            padding: 48px 0;
+        }
+
+        .capture-success.show {
+            display: block;
+        }
+
+        .capture-success h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--accent);
+        }
+
+        .capture-success p {
+            color: var(--text-secondary);
+        }
+
+        .capture-form.hidden {
+            display: none;
+        }
+
+        .offerings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+        }
+
+        .offering-card {
+            padding: 24px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        .offering-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .offering-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .offering-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-text {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            margin-top: 16px;
+        }
+
+        .footer-links a {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-links {
+                gap: 24px;
+            }
+
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .opening-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">Micaiah Bussey</a>
+                <nav class="nav-links">
+                    <a href="#vote">Vote</a>
+                    <a href="#join">Join</a>
+                    <a href="/writers">For Writers</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-tagline">Thriller Writer</div>
+            <h1 class="hero-name">Micaiah Bussey</h1>
+            <div class="hero-excerpt">
+                <p>Two men grabbed Zeke from behind and lifted him off the ground. He didn't fight—wasn't being robbed. He knew who these guys were. Heavy cologne, black suits, not FBI. Their dress shoes clicked on pavement as they walked him around the corner into the alley. At least they had good taste in footwear.</p>
+                <p>It was dark, but the man standing there waiting was unmistakable. Jet black suit silhouetted in the dim light of the alley. The orange glow of his cigarette burning as he pulled and then tossed it on the ground.</p>
+                <p>"You've been avoiding me, Mr. Cross." He stepped to the left.</p>
+                <p>Razor. The cologne gave him away before Zeke even saw his face—something expensive trying too hard. Slicked-back hair, white handkerchief in his suit pocket. The guy dressed like he'd studied Goodfellas frame by frame.</p>
+                <p>"Razor, buddy, you know how much I enjoy our visits."</p>
+            </div>
+            <p class="hero-book-credit">— THE FRAME, coming soon</p>
+            <a href="#vote" class="hero-cta">See the Openings</a>
+        </div>
+    </section>
+
+    <section class="section" id="vote">
+        <div class="container">
+            <div class="voting-intro">
+                <div class="section-label">Your Turn</div>
+                <h2 class="section-title">Which Opening Grabs You?</h2>
+                <p class="section-intro" style="margin: 16px auto 0;">These are real story openings I'm considering. Click the one that makes you want to keep reading. Your vote shapes what I write next.</p>
+            </div>
+
+            <div class="openings-grid" id="openingsGrid">
+                <div class="opening-card" data-opening="1">
+                    <div class="opening-number">Opening One</div>
+                    <div class="opening-text">
+                        <p>The body wasn't supposed to be there. That was Marcus's first thought—not horror, not panic, just the cold recognition that someone had made a serious mistake. The warehouse was his territory. Had been for three years. And nobody left packages without his say-so.</p>
+                        <p>He pulled out his phone, then stopped. Calling this in meant questions. Questions meant looking into his operation. His thumb hovered over the screen while the blood pooled toward his shoes.</p>
+                    </div>
+                </div>
+
+                <div class="opening-card" data-opening="2">
+                    <div class="opening-number">Opening Two</div>
+                    <div class="opening-text">
+                        <p>Dr. Yolanda Chen had seventeen minutes to live, and she knew it. The numbers didn't lie—they never had in her thirty-year career, and they weren't starting now. She pulled the lab results closer, double-checking what she already knew to be true.</p>
+                        <p>The question wasn't whether she could stop it. The question was who else would go with her.</p>
+                    </div>
+                </div>
+
+                <div class="opening-card" data-opening="3">
+                    <div class="opening-number">Opening Three</div>
+                    <div class="opening-text">
+                        <p>"You're not listening," the man said, and something in his voice made Detective Reese finally look up from her notes. In fourteen years of interviews, she'd heard every shade of desperation. This was different. This was certainty.</p>
+                        <p>"I'm telling you exactly where the next body will be found. I'm telling you when. I'm even telling you why you won't be able to stop it." He leaned forward, and his handcuffs clinked against the metal table. "The only thing I'm not telling you is how I know."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vote-prompt" id="votePrompt">
+                <p>Click an opening to cast your vote</p>
+                <div class="vote-count" id="voteCount"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section capture-section" id="join">
+        <div class="container">
+            <div class="capture-container">
+                <div class="section-label">Stay Connected</div>
+                <h2 class="capture-title">Join the Journey</h2>
+                <p class="capture-subtitle">Get updates on which story wins, early access to new work, and behind-the-scenes looks at the writing process.</p>
+
+                <form class="capture-form" id="captureForm">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <div class="checkbox-group-title">What interests you?</div>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="interests" value="books" checked>
+                            <span class="checkbox-label"><strong>Book Announcements</strong> — Know when new books drop (rare, only when it matters)</span>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="interests" value="dispatch">
+                            <span class="checkbox-label"><strong>The Dispatch</strong> — Behind-the-scenes updates, what I'm working on, stories that almost were (monthly-ish)</span>
+                        </label>
+
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="interests" value="writers">
+                            <span class="checkbox-label"><strong>Writer's Track</strong> — Craft insights, process breakdowns, encouragement for fellow writers</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Join the List</button>
+                    <p class="form-note">No spam. Unsubscribe anytime. I hate cluttered inboxes too.</p>
+                </form>
+
+                <div class="capture-success" id="captureSuccess">
+                    <h3>You're In</h3>
+                    <p>Check your inbox for a welcome note. And thanks for being part of this.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-label">What You'll Get</div>
+            <h2 class="section-title">More Than Just Book Updates</h2>
+            <p class="section-intro">This isn't a newsletter. It's a front-row seat to the messy, honest process of building stories.</p>
+
+            <div class="offerings">
+                <div class="offering-card">
+                    <div class="offering-icon">🗳️</div>
+                    <div class="offering-title">Shape the Stories</div>
+                    <div class="offering-desc">Vote on openings, weigh in on plot directions, help decide what gets written next.</div>
+                </div>
+
+                <div class="offering-card">
+                    <div class="offering-icon">📖</div>
+                    <div class="offering-title">Early Access</div>
+                    <div class="offering-desc">Read chapters before anyone else. Get the stories while they're still warm.</div>
+                </div>
+
+                <div class="offering-card">
+                    <div class="offering-icon">🔧</div>
+                    <div class="offering-title">Process Breakdowns</div>
+                    <div class="offering-desc">How the sausage gets made. Outlines, struggles, breakthroughs, and everything between.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2025 Micaiah Bussey. Writing thrillers in Virginia.</p>
+            <div class="footer-links">
+                <a href="/readers">For Readers</a>
+                <a href="/writers">For Writers</a>
+                <a href="https://tiktok.com/@micaiahbussey" target="_blank">TikTok</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'https://email-bot.untitledpublishers.com';
+        const LIST_SLUG = 'micaiah-bussey';
+
+        const openingsGrid = document.getElementById('openingsGrid');
+        const votePrompt = document.getElementById('votePrompt');
+        const voteCount = document.getElementById('voteCount');
+        let selectedOpening = null;
+        let hasVoted = localStorage.getItem('mb_voted');
+
+        if (hasVoted) {
+            const votedOpening = localStorage.getItem('mb_vote_choice');
+            showVotedState(votedOpening);
+        }
+
+        openingsGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.opening-card');
+            if (!card || hasVoted) return;
+
+            document.querySelectorAll('.opening-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedOpening = card.dataset.opening;
+
+            votePrompt.innerHTML = `
+                <p>Opening ${selectedOpening} selected</p>
+                <button onclick="submitVote()" class="submit-btn" style="width: auto; margin-top: 16px;">Confirm Vote</button>
+            `;
+        });
+
+        async function submitVote() {
+            if (!selectedOpening) return;
+
+            localStorage.setItem('mb_voted', 'true');
+            localStorage.setItem('mb_vote_choice', selectedOpening);
+            hasVoted = true;
+
+            showVotedState(selectedOpening);
+
+            setTimeout(() => {
+                document.getElementById('join').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function showVotedState(opening) {
+            votePrompt.innerHTML = `
+                <p style="color: var(--accent);">Thanks for voting! You picked Opening ${opening}.</p>
+                <p style="margin-top: 8px;">Sign up below to see which opening wins.</p>
+            `;
+            
+            document.querySelectorAll('.opening-card').forEach(c => {
+                if (c.dataset.opening === opening) {
+                    c.classList.add('selected');
+                }
+                c.style.cursor = 'default';
+            });
+        }
+
+        const captureForm = document.getElementById('captureForm');
+        const captureSuccess = document.getElementById('captureSuccess');
+
+        captureForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+
+            const formData = new FormData(captureForm);
+            const interests = formData.getAll('interests');
+
+            const payload = {
+                email: formData.get('email'),
+                name: formData.get('firstName'),
+                source: 'website',
+                funnel: 'homepage',
+                tags: interests
+            };
+
+            if (localStorage.getItem('mb_vote_choice')) {
+                payload.vote = localStorage.getItem('mb_vote_choice');
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/api/subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        list: LIST_SLUG,
+                        ...payload
+                    })
+                });
+
+                if (response.ok) {
+                    captureForm.classList.add('hidden');
+                    captureSuccess.classList.add('show');
+                    localStorage.setItem('mb_subscribed', 'true');
+                } else {
+                    throw new Error('Subscription failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Try Again';
+                alert('Something went wrong. Please try again.');
+            }
+        });
+
+        if (localStorage.getItem('mb_subscribed')) {
+            captureForm.classList.add('hidden');
+            captureSuccess.classList.add('show');
+            captureSuccess.querySelector('h3').textContent = 'Welcome Back';
+            captureSuccess.querySelector('p').textContent = 'You\'re already on the list. New content coming soon.';
+        }
+    </script>
+</body>
+</html>
