@@ -43,7 +43,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact Form Handler
+// Contact Form Handler using Web3Forms (free, no signup required)
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
@@ -54,25 +54,41 @@ document.addEventListener('DOMContentLoaded', function() {
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerHTML;
         
-        // Get form data
-        const formData = new FormData(form);
-        const name = formData.get('name');
+        // Get form values
+        const name = form.querySelector('#name').value;
+        const phone = form.querySelector('#phone').value;
+        const email = form.querySelector('#email').value;
+        const grantStatus = form.querySelector('#grant-status').value;
+        const message = form.querySelector('#message').value;
 
         // Show loading state
         submitBtn.disabled = true;
         submitBtn.innerHTML = 'Sending...';
 
         try {
-            // Send to Formspree
-            const response = await fetch('https://formspree.io/f/xwpkgjkr', {
+            // Send via Web3Forms
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
-                body: formData,
                 headers: {
-                    'Accept': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    access_key: '5765452b-2919-410c-8ed5-5e97f301287a',
+                    subject: 'New Website Inquiry - Built by Denny',
+                    from_name: 'Built by Denny Website',
+                    to: 'Dennis@builtbydenny.com',
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    grant_status: grantStatus || 'Not specified',
+                    message: message || 'No message provided',
+                    redirect: false
+                })
             });
 
-            if (response.ok) {
+            const result = await response.json();
+
+            if (result.success) {
                 // Show success message
                 form.innerHTML = `
                     <div class="form-success">
