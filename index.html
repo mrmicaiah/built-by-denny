@@ -5,843 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Built by Denny | VA SAH Specially Adapted Housing Builder | North Alabama</title>
     <meta name="description" content="Built by Denny specializes in VA Specially Adapted Housing (SAH) grant homes for disabled veterans in Huntsville, Madison, Athens, Decatur and surrounding North Alabama communities.">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --red: #C41E2E;
-            --red-dark: #a01824;
-            --black: #1a1a1a;
-            --charcoal: #2d2d2d;
-            --white: #ffffff;
-            --gray-light: #f5f5f5;
-            --gray: #666666;
-            --gray-dark: #444444;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--black);
-            line-height: 1.6;
-            background: var(--white);
-        }
-
-        h1, h2, h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-weight: 400;
-            letter-spacing: 0.02em;
-            line-height: 1.1;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        nav a {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            color: var(--black);
-            text-decoration: none;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--red);
-        }
-
-        .nav-cta {
-            background: var(--red);
-            color: var(--white) !important;
-            padding: 0.6rem 1.5rem;
-            border-radius: 2px;
-        }
-
-        .nav-cta:hover {
-            background: var(--red-dark);
-            color: var(--white) !important;
-        }
-
-        .mobile-menu {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .mobile-menu span {
-            width: 25px;
-            height: 3px;
-            background: var(--black);
-            transition: 0.3s;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--charcoal) 0%, var(--black) 100%);
-            overflow: hidden;
-            padding-top: 80px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text {
-            color: var(--white);
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--red);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .hero h1 span {
-            color: var(--red);
-        }
-
-        .hero-description {
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 2rem;
-            max-width: 500px;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 0.05em;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: var(--red);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--red-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(196, 30, 46, 0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
-        }
-
-        .btn-outline:hover {
-            background: var(--white);
-            color: var(--black);
-        }
-
-        .hero-visual {
-            position: relative;
-            animation: fadeIn 1s ease 0.5s both;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .stat-card {
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3.5rem;
-            color: var(--red);
-            line-height: 1;
-        }
-
-        .stat-label {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.5rem;
-        }
-
-        .va-section {
-            padding: 6rem 2rem;
-            background: var(--white);
-        }
-
-        .va-section-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-label {
-            display: inline-block;
-            color: var(--red);
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .section-header h2 {
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            color: var(--black);
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.15rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .va-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .va-card {
-            padding: 2.5rem;
-            background: var(--gray-light);
-            border-left: 4px solid var(--red);
-            transition: all 0.3s ease;
-        }
-
-        .va-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .va-card-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .va-card-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: var(--white);
-        }
-
-        .va-card h3 {
-            font-size: 1.5rem;
-            color: var(--black);
-            margin-bottom: 1rem;
-        }
-
-        .va-card p {
-            color: var(--gray);
-            line-height: 1.7;
-        }
-
-        .about-section {
-            padding: 6rem 2rem;
-            background: var(--black);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-section::before {
-            content: 'BBD';
-            position: absolute;
-            right: -5%;
-            top: 50%;
-            transform: translateY(-50%);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 25vw;
-            color: rgba(255,255,255,0.02);
-            pointer-events: none;
-        }
-
-        .about-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-content h2 {
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            color: var(--white);
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content h2 span {
-            color: var(--red);
-        }
-
-        .about-content p {
-            color: rgba(255,255,255,0.7);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-highlights {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .highlight-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: var(--white);
-        }
-
-        .highlight-check {
-            width: 24px;
-            height: 24px;
-            background: var(--red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .highlight-check svg {
-            width: 14px;
-            height: 14px;
-            fill: var(--white);
-        }
-
-        .about-image {
-            position: relative;
-        }
-
-        .about-image-main {
-            width: 100%;
-            aspect-ratio: 4/3;
-            background: linear-gradient(135deg, var(--charcoal), var(--red-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid var(--red);
-        }
-
-        .about-image-main svg {
-            width: 80px;
-            height: 80px;
-            fill: var(--white);
-            opacity: 0.3;
-        }
-
-        .experience-badge {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            background: var(--red);
-            padding: 1.5rem 2rem;
-            text-align: center;
-        }
-
-        .experience-badge .number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            color: var(--white);
-            line-height: 1;
-        }
-
-        .experience-badge .text {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .areas-section {
-            padding: 6rem 2rem;
-            background: var(--gray-light);
-        }
-
-        .areas-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .areas-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .area-card {
-            background: var(--white);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .area-card:hover {
-            border-bottom-color: var(--red);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .area-card svg {
-            width: 40px;
-            height: 40px;
-            fill: var(--red);
-            margin-bottom: 1rem;
-        }
-
-        .area-card h3 {
-            font-size: 1.3rem;
-            color: var(--black);
-            margin-bottom: 0.5rem;
-        }
-
-        .area-card p {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .contact-section {
-            padding: 6rem 2rem;
-            background: var(--white);
-        }
-
-        .contact-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-info h2 {
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            color: var(--black);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info p {
-            color: var(--gray);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .contact-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--white);
-        }
-
-        .contact-method-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .contact-method-label {
-            font-size: 0.85rem;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .contact-method-value {
-            font-size: 1.1rem;
-            color: var(--black);
-            font-weight: 600;
-        }
-
-        .contact-method-value a {
-            color: var(--black);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .contact-method-value a:hover {
-            color: var(--red);
-        }
-
-        .contact-form {
-            background: var(--gray-light);
-            padding: 3rem;
-        }
-
-        .contact-form h3 {
-            font-size: 1.8rem;
-            color: var(--black);
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--black);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid #e0e0e0;
-            background: var(--white);
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--red);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .form-submit {
-            width: 100%;
-            padding: 1rem 2rem;
-            background: var(--red);
-            color: var(--white);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 0.05em;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .form-submit:hover {
-            background: var(--red-dark);
-        }
-
-        footer {
-            background: var(--black);
-            padding: 3rem 2rem 1.5rem;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 2rem;
-        }
-
-        .footer-logo img {
-            height: 45px;
-            filter: brightness(0) invert(1);
-        }
-
-        .footer-tagline {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.95rem;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-copyright {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.85rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--red);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-description {
-                margin: 0 auto 2rem;
-            }
-
-            .hero-cta {
-                justify-content: center;
-            }
-
-            .hero-visual {
-                max-width: 500px;
-                margin: 0 auto;
-            }
-
-            .about-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .about-image {
-                order: -1;
-                max-width: 500px;
-                margin: 0 auto;
-            }
-
-            .contact-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .va-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .areas-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--white);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            }
-
-            nav.active {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: flex;
-            }
-
-            .hero {
-                min-height: auto;
-                padding: 8rem 0 4rem;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .stat-card {
-                padding: 1.5rem;
-            }
-
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .areas-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-top {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- ==================== HEADER ==================== -->
     <header>
         <div class="header-inner">
             <a href="#" class="logo">
-                <img src="denny_logo_compact_350w_web.png" alt="Built by Denny">
+                <img src="images/logo.png" alt="Built by Denny">
             </a>
             <nav id="nav">
+                <a href="#process">The Process</a>
+                <a href="#gallery">Our Work</a>
                 <a href="#services">Services</a>
                 <a href="#about">About</a>
-                <a href="#areas">Service Areas</a>
-                <a href="#contact" class="nav-cta">Get a Quote</a>
+                <a href="#contact" class="nav-cta">Get Started</a>
             </nav>
             <div class="mobile-menu" onclick="toggleNav()">
                 <span></span>
@@ -851,6 +36,7 @@
         </div>
     </header>
 
+    <!-- ==================== HERO ==================== -->
     <section class="hero">
         <div class="hero-content">
             <div class="hero-text">
@@ -859,10 +45,10 @@
                     VA SAH Grant Specialist
                 </div>
                 <h1>BUILDING HOMES FOR <span>AMERICAN HEROES</span></h1>
-                <p class="hero-description">Specialized in VA Specially Adapted Housing grant construction. We build accessible, custom homes designed for disabled veterans across North Alabama.</p>
+                <p class="hero-description">Specialized in VA Specially Adapted Housing grant construction. We guide you through every step—from grant approval to move-in day.</p>
                 <div class="hero-cta">
-                    <a href="#contact" class="btn btn-primary">Start Your Project</a>
-                    <a href="#services" class="btn btn-outline">Learn More</a>
+                    <a href="#process" class="btn btn-primary">See How It Works</a>
+                    <a href="#contact" class="btn btn-outline">Free Consultation</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -873,7 +59,7 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">VA</div>
-                        <div class="stat-label">SAH Certified</div>
+                        <div class="stat-label">SAH Specialist</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number">100%</div>
@@ -888,66 +74,225 @@
         </div>
     </section>
 
-    <section class="va-section" id="services">
-        <div class="va-section-inner">
+    <!-- ==================== PROCESS ==================== -->
+    <section class="process-section" id="process">
+        <div class="process-inner">
             <div class="section-header">
-                <span class="section-label">Our Specialty</span>
-                <h2>VA SAH GRANT HOME CONSTRUCTION</h2>
-                <p>We specialize in building specially adapted homes for veterans with service-connected disabilities, utilizing VA SAH grant funding to create accessible living spaces.</p>
+                <span class="section-label">How It Works</span>
+                <h2>YOUR PATH TO AN ACCESSIBLE HOME</h2>
+                <p>The VA SAH grant process can feel overwhelming. We're here to guide you through each step, from initial eligibility to handing you the keys.</p>
             </div>
-            <div class="va-grid">
-                <div class="va-card">
-                    <div class="va-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+
+            <div class="process-timeline">
+                <!-- Step 1 -->
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        </div>
+                        <h3>1. DETERMINE ELIGIBILITY</h3>
+                        <p>The VA SAH grant is available to veterans with qualifying service-connected disabilities.</p>
+                        <ul>
+                            <li>Loss or loss of use of both legs</li>
+                            <li>Loss or loss of use of both arms</li>
+                            <li>Blindness plus loss of use of a leg</li>
+                            <li>Severe burns</li>
+                            <li>ALS (any stage)</li>
+                        </ul>
                     </div>
-                    <h3>WHEELCHAIR ACCESSIBILITY</h3>
-                    <p>Wide doorways, roll-under counters, accessible bathrooms, and ramp systems designed to maximize independence and mobility throughout your home.</p>
+                    <div class="step-placeholder"></div>
+                    <span class="step-number">1</span>
                 </div>
-                <div class="va-card">
-                    <div class="va-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 8.5 12 8.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"/></svg>
+
+                <!-- Step 2 -->
+                <div class="process-step">
+                    <div class="step-placeholder"></div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+                        </div>
+                        <h3>2. APPLY FOR YOUR GRANT</h3>
+                        <p>Submit VA Form 26-4555 to apply. The VA will review and issue your Certificate of Eligibility (COE).</p>
+                        <ul>
+                            <li>Complete VA Form 26-4555</li>
+                            <li>Provide medical documentation</li>
+                            <li>Receive your COE</li>
+                            <li>Current grant max: ~$109,986</li>
+                        </ul>
                     </div>
-                    <h3>CUSTOM FLOOR PLANS</h3>
-                    <p>Every home is designed around your specific needs and the requirements of your VA grant, ensuring maximum functionality and comfort.</p>
+                    <span class="step-number">2</span>
                 </div>
-                <div class="va-card">
-                    <div class="va-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+
+                <!-- Step 3 -->
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <h3>3. FREE CONSULTATION</h3>
+                        <p>Meet with Built by Denny to discuss your needs, accessibility requirements, and vision for your home.</p>
+                        <ul>
+                            <li>Review your grant status</li>
+                            <li>Discuss accessibility needs</li>
+                            <li>Explore design options</li>
+                            <li>Get questions answered</li>
+                        </ul>
                     </div>
-                    <h3>VA GRANT NAVIGATION</h3>
-                    <p>We understand the SAH grant process and work directly with the VA to ensure your project meets all requirements for maximum benefit.</p>
+                    <div class="step-placeholder"></div>
+                    <span class="step-number">3</span>
                 </div>
-                <div class="va-card">
-                    <div class="va-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 11h-2V9h2m0-4h-2V3h2m-4 8h-2V9h2m0-4h-2V3h2M7 11H5V9h2m0-4H5V3h2m12 10H5v8h14v-8z"/></svg>
+
+                <!-- Step 4 -->
+                <div class="process-step">
+                    <div class="step-placeholder"></div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3L4 9v12h16V9l-8-6zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 8.5 12 8.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5z"/></svg>
+                        </div>
+                        <h3>4. DESIGN YOUR HOME</h3>
+                        <p>We create a custom floor plan that maximizes independence while meeting all VA requirements.</p>
+                        <ul>
+                            <li>Custom accessible floor plan</li>
+                            <li>Wheelchair-friendly layouts</li>
+                            <li>Adaptive features throughout</li>
+                            <li>VA compliance review</li>
+                        </ul>
                     </div>
-                    <h3>ROLL-IN SHOWERS</h3>
-                    <p>Barrier-free bathroom designs with grab bars, adjustable fixtures, and non-slip surfaces for safe, independent bathing.</p>
+                    <span class="step-number">4</span>
                 </div>
-                <div class="va-card">
-                    <div class="va-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+
+                <!-- Step 5 -->
+                <div class="process-step">
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                        </div>
+                        <h3>5. VA APPROVAL & PERMITS</h3>
+                        <p>We submit plans to the VA for approval and handle all local permits and inspections.</p>
+                        <ul>
+                            <li>Submit plans to VA</li>
+                            <li>Obtain building permits</li>
+                            <li>Schedule inspections</li>
+                            <li>Finalize contracts</li>
+                        </ul>
                     </div>
-                    <h3>SINGLE-LEVEL LIVING</h3>
-                    <p>Open concept designs that eliminate stairs and maximize accessible living space on a single floor.</p>
+                    <div class="step-placeholder"></div>
+                    <span class="step-number">5</span>
                 </div>
-                <div class="va-card">
-                    <div class="va-card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+
+                <!-- Step 6 -->
+                <div class="process-step">
+                    <div class="step-placeholder"></div>
+                    <div class="step-content">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg>
+                        </div>
+                        <h3>6. BUILD & MOVE IN</h3>
+                        <p>Construction begins! We keep you informed and conduct a final walkthrough before handing over keys.</p>
+                        <ul>
+                            <li>Quality construction</li>
+                            <li>Regular progress updates</li>
+                            <li>Final VA inspection</li>
+                            <li>Move into your new home</li>
+                        </ul>
                     </div>
-                    <h3>SMART HOME FEATURES</h3>
-                    <p>Voice-activated controls, automated lighting, and smart home systems that increase independence for daily living.</p>
+                    <span class="step-number">6</span>
+                </div>
+            </div>
+
+            <div class="process-cta">
+                <h3>READY TO GET STARTED?</h3>
+                <p>Whether you're exploring eligibility or already have your COE, we're here to help.</p>
+                <a href="#contact" class="btn btn-primary">Schedule Your Free Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== GALLERY ==================== -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-inner">
+            <div class="section-header">
+                <span class="section-label">Our Work</span>
+                <h2>BUILDING QUALITY HOMES</h2>
+                <p>From foundation to finish, we build accessible homes designed for veterans across North Alabama.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item featured">
+                    <img src="images/gallery/exterior-03.jpg" alt="House framing construction - two-story home frame">
+                    <div class="gallery-item-overlay">
+                        <h4>Custom Home Framing</h4>
+                        <p>Quality construction from the ground up</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/gallery/exterior-01.jpg" alt="Roof framing and trusses">
+                    <div class="gallery-item-overlay">
+                        <h4>Roof Structure</h4>
+                        <p>Precision framing for lasting quality</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/gallery/exterior-02.jpg" alt="Home construction at sunrise with scaffolding">
+                    <div class="gallery-item-overlay">
+                        <h4>Construction Progress</h4>
+                        <p>Building your dream home</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="images/gallery/interior-01.jpg" alt="Construction worker on site with safety equipment">
+                    <div class="gallery-item-overlay">
+                        <h4>Professional Team</h4>
+                        <p>Skilled craftsmen on every project</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ==================== SERVICES ==================== -->
+    <section class="services-section" id="services">
+        <div class="services-inner">
+            <div class="section-header">
+                <span class="section-label">What We Build</span>
+                <h2>ACCESSIBILITY FEATURES</h2>
+                <p>Every home is custom designed around your specific needs.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    </div>
+                    <h3>WHEELCHAIR ACCESS</h3>
+                    <p>Wide doorways (36"+), roll-under counters, accessible bathrooms, and ramp systems throughout.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 11h-2V9h2m0-4h-2V3h2m-4 8h-2V9h2m0-4h-2V3h2M7 11H5V9h2m0-4H5V3h2m12 10H5v8h14v-8z"/></svg>
+                    </div>
+                    <h3>ROLL-IN SHOWERS</h3>
+                    <p>Barrier-free bathrooms with grab bars, handheld fixtures, and non-slip surfaces.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                    </div>
+                    <h3>SMART HOME</h3>
+                    <p>Voice-activated controls, automated lighting, and systems that increase independence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
     <section class="about-section" id="about">
         <div class="about-inner">
             <div class="about-content">
-                <h2>TRUSTED <span>EXPERIENCE</span> YOU CAN COUNT ON</h2>
-                <p>Built by Denny and Associates Corporation brings over two decades of business experience to every project. Now specializing in VA SAH grant home construction, we're committed to building homes that honor the service and sacrifice of our nation's veterans.</p>
-                <p>We understand that an accessible home isn't just about construction—it's about restoring independence and improving quality of life for those who've given so much for our country.</p>
+                <h2>TRUSTED <span>EXPERIENCE</span></h2>
+                <p>Built by Denny and Associates Corporation brings over two decades of business experience to every project. We're committed to building homes that honor our veterans' service.</p>
                 <div class="about-highlights">
                     <div class="highlight-item">
                         <div class="highlight-check">
@@ -971,12 +316,12 @@
                         <div class="highlight-check">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                         </div>
-                        <span>Veteran-Focused Service</span>
+                        <span>North Alabama Based</span>
                     </div>
                 </div>
             </div>
             <div class="about-image">
-                <div class="about-image-main">
+                <div class="about-image-main placeholder">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg>
                 </div>
                 <div class="experience-badge">
@@ -987,12 +332,12 @@
         </div>
     </section>
 
+    <!-- ==================== SERVICE AREAS ==================== -->
     <section class="areas-section" id="areas">
         <div class="areas-inner">
             <div class="section-header">
                 <span class="section-label">Where We Build</span>
                 <h2>SERVING NORTH ALABAMA</h2>
-                <p>Proudly building accessible homes for veterans throughout the Tennessee Valley region.</p>
             </div>
             <div class="areas-grid">
                 <div class="area-card">
@@ -1016,15 +361,15 @@
                     <p>Morgan County</p>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 2rem; color: var(--gray);">Also serving surrounding communities throughout the Tennessee Valley</p>
         </div>
     </section>
 
+    <!-- ==================== CONTACT ==================== -->
     <section class="contact-section" id="contact">
         <div class="contact-inner">
             <div class="contact-info">
-                <h2>LET'S BUILD YOUR ACCESSIBLE HOME</h2>
-                <p>Ready to start your VA SAH grant home project? Contact us today for a free consultation. We're here to guide you through every step of the process.</p>
+                <h2>LET'S GET STARTED</h2>
+                <p>Ready to take the first step? Contact us for a free consultation.</p>
                 <div class="contact-methods">
                     <div class="contact-method">
                         <div class="contact-icon">
@@ -1044,15 +389,6 @@
                             <span class="contact-method-value"><a href="mailto:dennis@builtbydenny.com">dennis@builtbydenny.com</a></span>
                         </div>
                     </div>
-                    <div class="contact-method">
-                        <div class="contact-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        </div>
-                        <div class="contact-method-text">
-                            <span class="contact-method-label">Service Area</span>
-                            <span class="contact-method-value">North Alabama</span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="contact-form">
@@ -1063,26 +399,22 @@
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone">
                     </div>
                     <div class="form-group">
-                        <label for="veteran">Are you a veteran with VA SAH grant eligibility?</label>
-                        <select id="veteran" name="veteran">
-                            <option value="">Select an option</option>
-                            <option value="yes-approved">Yes, already approved</option>
-                            <option value="yes-pending">Yes, application pending</option>
-                            <option value="exploring">Exploring eligibility</option>
-                            <option value="other">Other inquiry</option>
+                        <label for="status">Where are you in the process?</label>
+                        <select id="status" name="status">
+                            <option value="">Select...</option>
+                            <option value="exploring">Just exploring eligibility</option>
+                            <option value="applying">Applying for SAH grant</option>
+                            <option value="approved">Already have COE</option>
+                            <option value="other">Other / Not sure</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="message">Tell us about your project</label>
-                        <textarea id="message" name="message" placeholder="Describe your accessibility needs, timeline, and any questions you have..."></textarea>
+                        <label for="message">Questions or Comments</label>
+                        <textarea id="message" name="message"></textarea>
                     </div>
                     <button type="submit" class="form-submit">Send Message</button>
                 </form>
@@ -1090,49 +422,27 @@
         </div>
     </section>
 
+    <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="footer-inner">
             <div class="footer-top">
                 <a href="#" class="footer-logo">
-                    <img src="denny_logo_compact_350w_web.png" alt="Built by Denny">
+                    <img src="images/logo.png" alt="Built by Denny">
                 </a>
                 <p class="footer-tagline">Building Accessible Homes for American Heroes</p>
             </div>
             <div class="footer-bottom">
                 <p class="footer-copyright">&copy; 2025 Built by Denny and Associates Corporation. All rights reserved.</p>
                 <div class="footer-links">
+                    <a href="#process">Process</a>
                     <a href="#services">Services</a>
-                    <a href="#about">About</a>
                     <a href="#contact">Contact</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        function toggleNav() {
-            document.getElementById('nav').classList.toggle('active');
-        }
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    document.getElementById('nav').classList.remove('active');
-                }
-            });
-        });
-
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 2px 30px rgba(0,0,0,0.15)';
-            } else {
-                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
 </body>
 </html>
