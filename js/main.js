@@ -43,7 +43,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact Form Handler
+// Contact Form Handler - Sends through Courier via MCP server
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.contact-form');
     if (!form) return;
@@ -65,38 +65,54 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.disabled = true;
         submitBtn.innerHTML = 'Sending...';
 
-        // Build email body
-        const emailBody = `New Contact Form Submission from Built by Denny Website
+        try {
+            const response = await fetch('https://productivity-mcp-server.micaiah-tasks.workers.dev/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    business: 'built-by-denny',
+                    to: 'Dennis@builtbydenny.com',
+                    subscriberEmail: email,
+                    formData: {
+                        name: name,
+                        phone: phone,
+                        email: email,
+                        grantStatus: grantStatus,
+                        message: message,
+                        source: 'Built by Denny Website',
+                        submittedAt: new Date().toISOString()
+                    }
+                })
+            });
 
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-SAH Grant Status: ${grantStatus}
-
-Message:
-${message}
-
----
-Submitted from builtbydenny.com`;
-
-        // Create mailto link as primary method
-        const mailtoLink = `mailto:Dennis@builtbydenny.com?subject=${encodeURIComponent('New Website Inquiry from ' + name)}&body=${encodeURIComponent(emailBody)}`;
-        
-        // Open email client
-        window.location.href = mailtoLink;
-        
-        // Show success message after brief delay
-        setTimeout(() => {
-            form.innerHTML = `
-                <div class="form-success">
-                    <svg viewBox="0 0 24 24" width="60" height="60" fill="#f5a623">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                    </svg>
-                    <h3>Almost Done!</h3>
-                    <p>Your email app should have opened with your message to Denny. Just hit send!</p>
-                    <p style="margin-top: 15px; font-size: 0.95rem; color: #666;">If your email didn't open, please call us at <a href="tel:2568082100" style="color: #f5a623; font-weight: 600;">(256) 808-2100</a></p>
-                </div>
-            `;
-        }, 500);
+            if (response.ok) {
+                form.innerHTML = `
+                    <div class="form-success">
+                        <svg viewBox="0 0 24 24" width="60" height="60" fill="#f5a623">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <h3>Message Sent!</h3>
+                        <p>Thanks for reaching out, ${name}. Denny will be in touch with you shortly.</p>
+                        <p class="form-success-note">Check your email for a confirmation.</p>
+                    </div>
+                `;
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            console.error('Form error:', error);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'form-error';
+            errorDiv.innerHTML = `<p>There was an issue sending your message. Please try again or call us at <a href="tel:2568082100">(256) 808-2100</a>.</p>`;
+            
+            const existingError = form.querySelector('.form-error');
+            if (existingError) existingError.remove();
+            form.insertBefore(errorDiv, submitBtn);
+        }
     });
 });
