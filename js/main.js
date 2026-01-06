@@ -43,76 +43,95 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact Form Handler - Sends through Courier via MCP server
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.contact-form');
-    if (!form) return;
+// Contact Form Handler - Sends through Courier
+(function() {
+    const CONFIG = {
+        list: 'built-by-denny',
+        source: 'built-by-denny',
+        funnel: 'website-contact-form',
+        formSelector: '#contact-form',
+        customFields: ['phone', 'grant-status', 'message'],
+        successMessage: 'Thanks for reaching out! Denny will be in touch shortly.',
+        errorMessage: 'Something went wrong. Please try again or call (256) 808-2100.'
+    };
 
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.innerHTML;
-        
-        // Get form values
-        const name = form.querySelector('#name').value;
-        const phone = form.querySelector('#phone').value;
-        const email = form.querySelector('#email').value;
-        const grantStatus = form.querySelector('#grant-status').value || 'Not specified';
-        const message = form.querySelector('#message').value || 'No message provided';
+    const API_URL = 'https://email-bot-server.micaiah-tasks.workers.dev/api/subscribe';
 
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Sending...';
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector(CONFIG.formSelector);
+        if (!form) return;
 
-        try {
-            const response = await fetch('https://productivity-mcp-server.micaiah-tasks.workers.dev/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    business: 'built-by-denny',
-                    to: 'Dennis@builtbydenny.com',
-                    subscriberEmail: email,
-                    formData: {
-                        name: name,
-                        phone: phone,
-                        email: email,
-                        grantStatus: grantStatus,
-                        message: message,
-                        source: 'Built by Denny Website',
-                        submittedAt: new Date().toISOString()
-                    }
-                })
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn?.textContent;
+            
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Sending...';
+            }
+
+            // Build payload
+            const payload = {
+                email: form.querySelector('#email')?.value,
+                list: CONFIG.list,
+                source: CONFIG.source,
+                funnel: CONFIG.funnel,
+                name: form.querySelector('#name')?.value,
+                notifyOwner: 'Dennis@builtbydenny.com',
+                metadata: {}
+            };
+
+            // Add custom fields to metadata
+            CONFIG.customFields.forEach(field => {
+                const el = form.querySelector(`#${field}`) || form.querySelector(`[name="${field}"]`);
+                if (el?.value) payload.metadata[field] = el.value;
             });
 
-            if (response.ok) {
-                form.innerHTML = `
-                    <div class="form-success">
-                        <svg viewBox="0 0 24 24" width="60" height="60" fill="#f5a623">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                        </svg>
-                        <h3>Message Sent!</h3>
-                        <p>Thanks for reaching out, ${name}. Denny will be in touch with you shortly.</p>
-                        <p class="form-success-note">Check your email for a confirmation.</p>
-                    </div>
-                `;
-            } else {
-                throw new Error('Form submission failed');
+            try {
+                const resp = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await resp.json();
+
+                if (resp.ok) {
+                    const name = form.querySelector('#name')?.value || 'there';
+                    form.innerHTML = `
+                        <div class="form-success">
+                            <svg viewBox="0 0 24 24" width="60" height="60" fill="#f5a623">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            <h3>Message Sent!</h3>
+                            <p>Thanks for reaching out, ${name}. Denny will be in touch with you shortly.</p>
+                        </div>
+                    `;
+                } else {
+                    showError(form, btn, originalText, data.error || CONFIG.errorMessage);
+                }
+            } catch (err) {
+                console.error('Form error:', err);
+                showError(form, btn, originalText, CONFIG.errorMessage);
             }
-        } catch (error) {
-            console.error('Form error:', error);
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-            
-            const errorDiv = document.createElement('div');
-            errorDiv.className = 'form-error';
-            errorDiv.innerHTML = `<p>There was an issue sending your message. Please try again or call us at <a href="tel:2568082100">(256) 808-2100</a>.</p>`;
-            
-            const existingError = form.querySelector('.form-error');
-            if (existingError) existingError.remove();
-            form.insertBefore(errorDiv, submitBtn);
-        }
+        });
     });
-});
+
+    function showError(form, btn, originalText, message) {
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }
+        
+        let msg = form.querySelector('.form-error');
+        if (!msg) {
+            msg = document.createElement('div');
+            msg.className = 'form-error';
+            const submitBtn = form.querySelector('button[type="submit"]');
+            form.insertBefore(msg, submitBtn);
+        }
+        msg.innerHTML = `<p>${message}</p>`;
+    }
+})();
