@@ -303,7 +303,7 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     border-bottom: 1px solid rgba(255,255,255,0.1); 
     margin-bottom: 30px; 
 }
-.footer-logo { height: 50px; filter: brightness(0) invert(1); margin-bottom: 10px; }
+.footer-logo { height: 50px; margin-bottom: 10px; }
 .footer-brand p { color: rgba(255,255,255,0.6); font-size: 0.95rem; }
 .footer-links { display: flex; gap: 35px; }
 .footer-links a { color: rgba(255,255,255,0.6); font-size: 0.95rem; }
@@ -734,7 +734,7 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     .about-section { padding: 50px 16px; }
     .contact-section { padding: 50px 16px; }
     .form-row { flex-direction: column; gap: 0; }
-    .footer { padding: 40px 16px 20px; }
+    footer { padding: 40px 16px 20px; }
     .footer-inner { flex-direction: column; text-align: center; gap: 25px; }
     .footer-links { flex-wrap: wrap; justify-content: center; gap: 18px; }
     .services-main { padding: 50px 16px; }
