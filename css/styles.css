@@ -218,7 +218,19 @@ nav a:hover, nav a.active { color: var(--gold); }
 .about-areas { flex: 1; background: var(--navy); padding: 35px; border-radius: 4px; }
 .about-areas h3 { font-size: 1.25rem; margin-bottom: 20px; color: var(--gold); }
 .areas-list { display: flex; flex-direction: column; gap: 12px; }
-.areas-list span { background: rgba(255,255,255,0.1); color: var(--white); padding: 12px 18px; font-size: 1rem; border-left: 3px solid var(--gold); }
+.areas-list span,
+.areas-list a { 
+    background: rgba(255,255,255,0.1); 
+    color: var(--white); 
+    padding: 12px 18px; 
+    font-size: 1rem; 
+    border-left: 3px solid var(--gold); 
+    display: block;
+    transition: background 0.3s ease;
+}
+.areas-list a:hover {
+    background: rgba(255,255,255,0.2);
+}
 
 /* Contact Section */
 .contact-section { padding: 80px 24px; background: var(--gray-light); }
@@ -312,6 +324,54 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
 .footer-bottom p { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
 
 /* ===== SERVICES PAGE STYLES ===== */
+
+/* Services Preview - Homepage */
+.services-preview {
+    padding: 80px 24px;
+    background: var(--white);
+}
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.service-card {
+    background: var(--gray-light);
+    padding: 30px;
+    border-left: 4px solid var(--gold);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.service-card .service-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    color: var(--navy);
+}
+.service-card h3 {
+    font-size: 1.25rem;
+    color: var(--navy);
+    margin-bottom: 10px;
+}
+.service-card p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+.services-cta {
+    text-align: center;
+    margin-top: 40px;
+}
 
 .services-main { 
     padding: 70px 24px; 
@@ -428,10 +488,35 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     font-weight: 600;
     color: var(--navy);
     border-left: 4px solid var(--gold);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     font-size: 1.05rem;
 }
-.area-card:hover { transform: translateY(-3px); }
+.area-card:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Area Card Links - for service areas page */
+.area-card-link {
+    display: block;
+    text-decoration: none;
+}
+.area-card-link strong {
+    display: block;
+    color: var(--navy);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+.area-card-link span {
+    display: block;
+    color: var(--gray);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.area-card-link:hover {
+    border-left-color: var(--gold-dark);
+}
+
 .areas-note {
     text-align: center;
     color: var(--gray);
@@ -439,6 +524,10 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     font-size: 1rem;
     max-width: 1100px;
     margin: 25px auto 0;
+}
+.areas-note a {
+    color: var(--gold-dark);
+    text-decoration: underline;
 }
 
 /* ===== VA SAH GRANT PAGE STYLES ===== */
@@ -470,6 +559,26 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     line-height: 1.7;
 }
 .content-narrow strong {
+    color: var(--navy);
+}
+.content-narrow a {
+    color: var(--gold-dark);
+    text-decoration: underline;
+}
+.content-narrow a:hover {
+    color: var(--gold);
+}
+
+/* Areas Grid inside content sections - inherits light bg */
+.content-section .areas-grid {
+    background: transparent;
+}
+.content-section .area-card {
+    background: var(--white);
+    color: var(--navy);
+}
+.content-section.bg-light .area-card {
+    background: var(--white);
     color: var(--navy);
 }
 
@@ -690,6 +799,7 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     .about-inner { flex-direction: column; gap: 40px; }
     .contact-inner { flex-direction: column; gap: 40px; }
     .service-features { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
     .areas-grid { grid-template-columns: repeat(2, 1fr); }
     .use-cards { grid-template-columns: 1fr; }
     .check-list { grid-template-columns: 1fr; }
@@ -738,6 +848,7 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
     .footer-inner { flex-direction: column; text-align: center; gap: 25px; }
     .footer-links { flex-wrap: wrap; justify-content: center; gap: 18px; }
     .services-main { padding: 50px 16px; }
+    .services-preview { padding: 50px 16px; }
     .service-block { padding: 40px 0; }
     .content-section { padding: 50px 16px; }
     .cta-section { padding: 50px 16px; }
