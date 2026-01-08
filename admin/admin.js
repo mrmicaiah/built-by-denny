@@ -9,24 +9,11 @@
 (function() {
     'use strict';
 
-    // ===========================================
-    // CONFIGURATION
-    // ===========================================
-    
     const CONFIG = {
-        // API endpoint - Cloudflare Worker
         apiUrl: 'https://denny-blog-admin.micaiah-tasks.workers.dev',
-        
-        // Session storage key
         sessionKey: 'denny_blog_session',
-        
-        // Author name for posts
         author: 'Denny Liuzzo'
     };
-
-    // ===========================================
-    // STATE
-    // ===========================================
 
     let state = {
         authenticated: false,
@@ -36,22 +23,21 @@
         featuredImage: null
     };
 
-    // ===========================================
-    // DOM ELEMENTS
-    // ===========================================
-
     const elements = {
         loginScreen: document.getElementById('login-screen'),
         adminScreen: document.getElementById('admin-screen'),
         dashboardView: document.getElementById('dashboard-view'),
         editorView: document.getElementById('editor-view'),
+        settingsView: document.getElementById('settings-view'),
         loginForm: document.getElementById('login-form'),
         passwordInput: document.getElementById('password'),
         loginError: document.getElementById('login-error'),
         postsContainer: document.getElementById('posts-container'),
         newPostBtn: document.getElementById('new-post-btn'),
+        settingsBtn: document.getElementById('settings-btn'),
         logoutBtn: document.getElementById('logout-btn'),
         editorBack: document.getElementById('editor-back'),
+        settingsBack: document.getElementById('settings-back'),
         postTitle: document.getElementById('post-title'),
         postContent: document.getElementById('post-content'),
         imageUpload: document.getElementById('image-upload'),
@@ -62,6 +48,10 @@
         previewModal: document.getElementById('preview-modal'),
         previewContent: document.getElementById('preview-content'),
         previewClose: document.getElementById('preview-close'),
+        changePasswordForm: document.getElementById('change-password-form'),
+        currentPasswordInput: document.getElementById('current-password'),
+        newPasswordInput: document.getElementById('new-password'),
+        confirmPasswordInput: document.getElementById('confirm-password'),
         notification: document.getElementById('notification'),
         notificationText: document.getElementById('notification-text'),
         loading: document.getElementById('loading')
@@ -76,7 +66,9 @@
         elements.loginForm.addEventListener('submit', handleLogin);
         elements.logoutBtn.addEventListener('click', handleLogout);
         elements.newPostBtn.addEventListener('click', () => openEditor());
+        elements.settingsBtn.addEventListener('click', showSettings);
         elements.editorBack.addEventListener('click', closeEditor);
+        elements.settingsBack.addEventListener('click', showDashboard);
         elements.imageUpload.addEventListener('click', () => elements.imageInput.click());
         elements.imageInput.addEventListener('change', handleImageUpload);
         elements.previewBtn.addEventListener('click', openPreview);
@@ -86,6 +78,7 @@
         elements.previewModal.addEventListener('click', (e) => {
             if (e.target === elements.previewModal) closePreview();
         });
+        elements.changePasswordForm.addEventListener('submit', handleChangePassword);
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closePreview();
             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -135,6 +128,7 @@
                 showAdminScreen();
                 loadPosts();
             } else {
+                elements.loginError.textContent = data.error || 'Incorrect password. Please try again.';
                 elements.loginError.classList.add('show');
                 elements.passwordInput.value = '';
                 elements.passwordInput.focus();
@@ -153,6 +147,49 @@
         state.posts = [];
         showLoginScreen();
         notify('Logged out successfully');
+    }
+
+    async function handleChangePassword(e) {
+        e.preventDefault();
+        const currentPassword = elements.currentPasswordInput.value;
+        const newPassword = elements.newPasswordInput.value;
+        const confirmPassword = elements.confirmPasswordInput.value;
+
+        if (newPassword !== confirmPassword) {
+            notify('New passwords do not match', 'error');
+            return;
+        }
+
+        if (newPassword.length < 6) {
+            notify('Password must be at least 6 characters', 'error');
+            return;
+        }
+
+        showLoading();
+        try {
+            const response = await fetch(`${CONFIG.apiUrl}/change-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${getAuthToken()}`
+                },
+                body: JSON.stringify({ currentPassword, newPassword })
+            });
+            const data = await response.json();
+            if (response.ok && data.success) {
+                notify('Password changed successfully!');
+                elements.currentPasswordInput.value = '';
+                elements.newPasswordInput.value = '';
+                elements.confirmPasswordInput.value = '';
+                showDashboard();
+            } else {
+                notify(data.error || 'Failed to change password', 'error');
+            }
+        } catch (err) {
+            console.error('Change password error:', err);
+            notify('Connection error. Please try again.', 'error');
+        }
+        hideLoading();
     }
 
     function getAuthToken() {
@@ -179,11 +216,19 @@
     function showDashboard() {
         elements.dashboardView.style.display = 'block';
         elements.editorView.style.display = 'none';
+        elements.settingsView.style.display = 'none';
     }
 
     function showEditor() {
         elements.dashboardView.style.display = 'none';
         elements.editorView.style.display = 'block';
+        elements.settingsView.style.display = 'none';
+    }
+
+    function showSettings() {
+        elements.dashboardView.style.display = 'none';
+        elements.editorView.style.display = 'none';
+        elements.settingsView.style.display = 'block';
     }
 
     async function loadPosts() {

@@ -1,11 +1,6 @@
 /* ==============================================
    BUILT BY DENNY - ADMIN STYLES
-   
-   Styles for the blog admin dashboard.
-   Uses CSS variables from styles.css.
    ============================================== */
-
-/* ===== ADMIN LAYOUT ===== */
 
 .admin-wrapper {
     min-height: 100vh;
@@ -23,9 +18,7 @@
     z-index: 100;
 }
 
-.admin-header-logo {
-    height: 45px;
-}
+.admin-header-logo { height: 45px; }
 
 .admin-header-title {
     font-family: var(--font-heading);
@@ -40,6 +33,22 @@
     gap: 15px;
     color: var(--white);
     font-size: 0.9rem;
+}
+
+.admin-settings {
+    background: transparent;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.admin-settings:hover {
+    background: rgba(255,255,255,0.1);
 }
 
 .admin-logout {
@@ -65,9 +74,7 @@
     padding: 30px 24px;
 }
 
-
-/* ===== LOGIN SCREEN ===== */
-
+/* LOGIN */
 .login-wrapper {
     min-height: 100vh;
     display: flex;
@@ -87,10 +94,7 @@
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-.login-logo {
-    height: 60px;
-    margin-bottom: 20px;
-}
+.login-logo { height: 60px; margin-bottom: 20px; }
 
 .login-title {
     font-family: var(--font-heading);
@@ -105,9 +109,7 @@
     margin-bottom: 30px;
 }
 
-.login-form {
-    text-align: left;
-}
+.login-form { text-align: left; }
 
 .login-form label {
     display: block;
@@ -143,13 +145,9 @@
     display: none;
 }
 
-.login-error.show {
-    display: block;
-}
+.login-error.show { display: block; }
 
-
-/* ===== DASHBOARD ===== */
-
+/* DASHBOARD */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -188,17 +186,10 @@
     transition: background 0.2s ease;
 }
 
-.post-item:last-child {
-    border-bottom: none;
-}
+.post-item:last-child { border-bottom: none; }
+.post-item:hover { background: var(--gray-light); }
 
-.post-item:hover {
-    background: var(--gray-light);
-}
-
-.post-info {
-    flex: 1;
-}
+.post-info { flex: 1; }
 
 .post-title {
     font-weight: 600;
@@ -207,10 +198,7 @@
     margin-bottom: 4px;
 }
 
-.post-meta {
-    font-size: 0.85rem;
-    color: var(--gray);
-}
+.post-meta { font-size: 0.85rem; color: var(--gray); }
 
 .post-status {
     display: inline-block;
@@ -223,20 +211,10 @@
     margin-left: 10px;
 }
 
-.post-status.published {
-    background: #d4edda;
-    color: #155724;
-}
+.post-status.published { background: #d4edda; color: #155724; }
+.post-status.draft { background: #fff3cd; color: #856404; }
 
-.post-status.draft {
-    background: #fff3cd;
-    color: #856404;
-}
-
-.post-actions {
-    display: flex;
-    gap: 10px;
-}
+.post-actions { display: flex; gap: 10px; }
 
 .post-action-btn {
     background: transparent;
@@ -249,19 +227,9 @@
     color: var(--navy);
 }
 
-.post-action-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-}
-
-.post-action-btn.delete {
-    color: #c00;
-}
-
-.post-action-btn.delete:hover {
-    border-color: #c00;
-    background: #fee;
-}
+.post-action-btn:hover { border-color: var(--gold); color: var(--gold); }
+.post-action-btn.delete { color: #c00; }
+.post-action-btn.delete:hover { border-color: #c00; background: #fee; }
 
 .posts-empty {
     padding: 60px 20px;
@@ -276,9 +244,7 @@
     margin-bottom: 8px;
 }
 
-
-/* ===== EDITOR ===== */
-
+/* EDITOR */
 .editor-header {
     display: flex;
     justify-content: space-between;
@@ -298,14 +264,9 @@
     padding: 0;
 }
 
-.editor-back:hover {
-    color: var(--navy);
-}
+.editor-back:hover { color: var(--navy); }
 
-.editor-actions {
-    display: flex;
-    gap: 12px;
-}
+.editor-actions { display: flex; gap: 12px; }
 
 .editor-box {
     background: var(--white);
@@ -319,9 +280,7 @@
     border-bottom: 1px solid #eee;
 }
 
-.editor-section:last-child {
-    border-bottom: none;
-}
+.editor-section:last-child { border-bottom: none; }
 
 .editor-label {
     display: block;
@@ -341,10 +300,7 @@
     transition: border-color 0.3s ease;
 }
 
-.editor-input:focus {
-    outline: none;
-    border-color: var(--gold);
-}
+.editor-input:focus { outline: none; border-color: var(--gold); }
 
 .editor-input.title-input {
     font-family: var(--font-heading);
@@ -365,20 +321,32 @@
     transition: border-color 0.3s ease;
 }
 
-.editor-textarea:focus {
-    outline: none;
-    border-color: var(--gold);
+.editor-textarea:focus { outline: none; border-color: var(--gold); }
+
+.editor-help { font-size: 0.85rem; color: var(--gray); margin-top: 10px; }
+
+/* SETTINGS */
+.settings-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 8px;
 }
 
-.editor-help {
-    font-size: 0.85rem;
+.settings-desc {
     color: var(--gray);
+    margin-bottom: 25px;
+}
+
+.settings-form .form-group {
+    margin-bottom: 20px;
+}
+
+.settings-form .btn {
     margin-top: 10px;
 }
 
-
-/* ===== IMAGE UPLOAD ===== */
-
+/* IMAGE UPLOAD */
 .image-upload-area {
     border: 2px dashed #ddd;
     border-radius: 8px;
@@ -389,63 +357,26 @@
     background: var(--gray-light);
 }
 
-.image-upload-area:hover {
-    border-color: var(--gold);
-    background: #fef9f0;
-}
+.image-upload-area:hover { border-color: var(--gold); background: #fef9f0; }
+.image-upload-area.has-image { padding: 0; border-style: solid; }
 
-.image-upload-area.has-image {
-    padding: 0;
-    border-style: solid;
-}
+.image-upload-icon { width: 48px; height: 48px; margin: 0 auto 15px; color: var(--gray); }
+.image-upload-text { color: var(--navy); font-weight: 600; margin-bottom: 5px; }
+.image-upload-hint { font-size: 0.85rem; color: var(--gray); }
+.image-preview { width: 100%; max-height: 300px; object-fit: cover; border-radius: 6px; }
+.image-upload-input { display: none; }
 
-.image-upload-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 15px;
-    color: var(--gray);
-}
-
-.image-upload-text {
-    color: var(--navy);
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.image-upload-hint {
-    font-size: 0.85rem;
-    color: var(--gray);
-}
-
-.image-preview {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.image-upload-input {
-    display: none;
-}
-
-
-/* ===== PREVIEW MODAL ===== */
-
+/* PREVIEW MODAL */
 .preview-modal {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0,0,0,0.8);
     z-index: 1000;
     display: none;
     overflow-y: auto;
 }
 
-.preview-modal.show {
-    display: block;
-}
+.preview-modal.show { display: block; }
 
 .preview-modal-content {
     background: var(--white);
@@ -464,10 +395,7 @@
     align-items: center;
 }
 
-.preview-modal-title {
-    font-family: var(--font-heading);
-    font-size: 1.1rem;
-}
+.preview-modal-title { font-family: var(--font-heading); font-size: 1.1rem; }
 
 .preview-modal-close {
     background: none;
@@ -478,13 +406,9 @@
     line-height: 1;
 }
 
-.preview-modal-body {
-    padding: 30px;
-}
+.preview-modal-body { padding: 30px; }
 
-
-/* ===== NOTIFICATIONS ===== */
-
+/* NOTIFICATIONS */
 .notification {
     position: fixed;
     bottom: 30px;
@@ -503,28 +427,14 @@
     z-index: 1001;
 }
 
-.notification.show {
-    transform: translateY(0);
-    opacity: 1;
-}
+.notification.show { transform: translateY(0); opacity: 1; }
+.notification.success { background: #155724; }
+.notification.error { background: #c00; }
 
-.notification.success {
-    background: #155724;
-}
-
-.notification.error {
-    background: #c00;
-}
-
-
-/* ===== LOADING STATE ===== */
-
+/* LOADING */
 .loading-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(255,255,255,0.9);
     display: none;
     align-items: center;
@@ -532,9 +442,7 @@
     z-index: 1002;
 }
 
-.loading-overlay.show {
-    display: flex;
-}
+.loading-overlay.show { display: flex; }
 
 .loading-spinner {
     width: 50px;
@@ -545,63 +453,19 @@
     animation: spin 1s linear infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-
-/* ===== RESPONSIVE ===== */
-
+/* RESPONSIVE */
 @media (max-width: 600px) {
-    .admin-header {
-        padding: 12px 16px;
-    }
-    
-    .admin-header-title {
-        display: none;
-    }
-    
-    .admin-main {
-        padding: 20px 16px;
-    }
-    
-    .dashboard-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
-    }
-    
-    .post-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    
-    .post-actions {
-        width: 100%;
-    }
-    
-    .post-action-btn {
-        flex: 1;
-        text-align: center;
-    }
-    
-    .editor-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch;
-    }
-    
-    .editor-actions {
-        justify-content: stretch;
-    }
-    
-    .editor-actions .btn {
-        flex: 1;
-        justify-content: center;
-    }
-    
-    .login-box {
-        padding: 30px 20px;
-    }
+    .admin-header { padding: 12px 16px; }
+    .admin-header-title { display: none; }
+    .admin-main { padding: 20px 16px; }
+    .dashboard-header { flex-direction: column; gap: 15px; align-items: stretch; }
+    .post-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .post-actions { width: 100%; }
+    .post-action-btn { flex: 1; text-align: center; }
+    .editor-header { flex-direction: column; gap: 15px; align-items: stretch; }
+    .editor-actions { justify-content: stretch; }
+    .editor-actions .btn { flex: 1; justify-content: center; }
+    .login-box { padding: 30px 20px; }
 }
