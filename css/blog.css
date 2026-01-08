@@ -15,9 +15,9 @@
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -37,36 +37,44 @@
 
 .blog-card-image {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     display: block;
 }
 
 .blog-card-content {
-    padding: 25px;
+    padding: 20px;
 }
 
 .blog-card-date {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .blog-card-title {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     color: var(--navy);
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     line-height: 1.2;
+}
+
+.blog-card-title a {
+    color: inherit;
+}
+
+.blog-card-title a:hover {
+    color: var(--gold);
 }
 
 .blog-card-excerpt {
     color: var(--gray);
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.6;
-    margin-bottom: 18px;
+    margin-bottom: 15px;
 }
 
 .blog-card-link {
@@ -74,7 +82,7 @@
     align-items: center;
     gap: 8px;
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--gold);
     letter-spacing: 0.03em;
     transition: gap 0.3s ease;
@@ -87,6 +95,7 @@
 
 /* Empty state */
 .blog-empty {
+    grid-column: 1 / -1;
     text-align: center;
     padding: 60px 20px;
     color: var(--gray);
@@ -256,24 +265,29 @@
 
 /* ===== RESPONSIVE ===== */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
     .blog-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 25px;
     }
 }
 
 @media (max-width: 600px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
     .blog-post {
         padding: 50px 16px;
     }
     
     .blog-card-content {
-        padding: 20px;
+        padding: 18px;
     }
     
     .blog-card-title {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
     
     .blog-post-content {
