@@ -13,9 +13,6 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/blog.css">
     <link rel="stylesheet" href="admin.css">
-    
-    <!-- Quill Editor -->
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <!-- LOGIN SCREEN -->
@@ -103,9 +100,27 @@
                     </div>
 
                     <div class="editor-section">
-                        <label class="editor-label">Content</label>
-                        <div id="quill-editor"></div>
-                        <p class="editor-help">Use the toolbar to format text, add links, and create lists.</p>
+                        <label class="editor-label" for="post-content">Content</label>
+                        <div class="editor-toolbar">
+                            <button type="button" id="link-btn" class="toolbar-btn" title="Insert Link (select text first)">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                            </button>
+                        </div>
+                        <textarea id="post-content" class="editor-textarea" placeholder="Write your post here...
+
+You can use simple formatting:
+**bold text**
+_italic text_
+[link text](https://example.com)
+
+## Section Heading
+
+- Bullet point
+- Another point
+
+1. Numbered item
+2. Another item"></textarea>
+                        <p class="editor-help">Select text and click the link icon to add a link. Use **bold**, _italic_, and ## for headings.</p>
                     </div>
                 </div>
             </div>
@@ -173,8 +188,6 @@
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Quill Editor Script -->
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
