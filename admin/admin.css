@@ -308,12 +308,48 @@
     padding: 16px;
 }
 
+/* EDITOR TOOLBAR */
+.editor-toolbar {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--navy);
+    transition: all 0.2s ease;
+}
+
+.toolbar-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--white);
+}
+
+.toolbar-btn:active {
+    transform: scale(0.95);
+}
+
 .editor-textarea {
     width: 100%;
     min-height: 400px;
     padding: 16px;
     border: 2px solid #e0e0e0;
-    border-radius: 4px;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
     font-size: 16px;
     font-family: var(--font-body);
     line-height: 1.7;
@@ -322,6 +358,12 @@
 }
 
 .editor-textarea:focus { outline: none; border-color: var(--gold); }
+
+/* When textarea is focused, highlight the toolbar too */
+.editor-textarea:focus + .editor-toolbar,
+.editor-section:focus-within .editor-toolbar {
+    border-color: var(--gold);
+}
 
 .editor-help { font-size: 0.85rem; color: var(--gray); margin-top: 10px; }
 
