@@ -4,6 +4,8 @@
    Handles the blog admin dashboard functionality.
    Communicates with Cloudflare Worker API for
    authentication and GitHub publishing.
+   
+   Uses Quill rich text editor for content.
    ============================================== */
 
 (function() {
@@ -23,6 +25,8 @@
         featuredImage: null
     };
 
+    let quillEditor = null;
+
     const elements = {
         loginScreen: document.getElementById('login-screen'),
         adminScreen: document.getElementById('admin-screen'),
@@ -39,7 +43,7 @@
         editorBack: document.getElementById('editor-back'),
         settingsBack: document.getElementById('settings-back'),
         postTitle: document.getElementById('post-title'),
-        postContent: document.getElementById('post-content'),
+        quillContainer: document.getElementById('quill-editor'),
         imageUpload: document.getElementById('image-upload'),
         imageInput: document.getElementById('image-input'),
         previewBtn: document.getElementById('preview-btn'),
@@ -58,8 +62,26 @@
     };
 
     function init() {
+        initQuillEditor();
         checkSession();
         bindEvents();
+    }
+
+    function initQuillEditor() {
+        // Initialize Quill with a clean toolbar
+        quillEditor = new Quill('#quill-editor', {
+            theme: 'snow',
+            placeholder: 'Write your post here...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [2, 3, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['link'],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['clean']
+                ]
+            }
+        });
     }
 
     function bindEvents() {
@@ -307,7 +329,21 @@
         state.editingId = post ? post.id : null;
         state.featuredImage = post ? post.image : null;
         elements.postTitle.value = post ? post.title : '';
-        elements.postContent.value = post ? post.content : '';
+        
+        // Set Quill content
+        if (post && post.content) {
+            // Check if content looks like HTML (from new editor) or plain text/markdown (from old editor)
+            if (post.content.includes('<') && post.content.includes('>')) {
+                // It's HTML - load it directly
+                quillEditor.root.innerHTML = post.content;
+            } else {
+                // It's old markdown-style content - convert it first
+                quillEditor.root.innerHTML = markdownToHtml(post.content);
+            }
+        } else {
+            quillEditor.root.innerHTML = '';
+        }
+        
         if (state.featuredImage) {
             elements.imageUpload.innerHTML = `<img src="${state.featuredImage}" class="image-preview" alt="Featured image">`;
             elements.imageUpload.classList.add('has-image');
@@ -319,13 +355,16 @@
     }
 
     function closeEditor() {
-        if (elements.postTitle.value || elements.postContent.value) {
+        const content = quillEditor.root.innerHTML;
+        const hasContent = content && content !== '<p><br></p>' && content.trim() !== '';
+        
+        if (elements.postTitle.value || hasContent) {
             if (!confirm('You have unsaved changes. Are you sure you want to leave?')) return;
         }
         state.editingId = null;
         state.featuredImage = null;
         elements.postTitle.value = '';
-        elements.postContent.value = '';
+        quillEditor.root.innerHTML = '';
         resetImageUpload();
         showDashboard();
     }
@@ -358,12 +397,23 @@
 
     async function savePost(publish = false) {
         const title = elements.postTitle.value.trim();
-        const content = elements.postContent.value.trim();
+        const content = quillEditor.root.innerHTML;
+        const hasContent = content && content !== '<p><br></p>' && content.trim() !== '';
+        
         if (!title) { notify('Please enter a title', 'error'); elements.postTitle.focus(); return; }
-        if (!content) { notify('Please enter some content', 'error'); elements.postContent.focus(); return; }
+        if (!hasContent) { notify('Please enter some content', 'error'); quillEditor.focus(); return; }
+        
         showLoading();
-        const postData = { title, content, image: state.featuredImage, published: publish, author: CONFIG.author };
+        const postData = { 
+            title, 
+            content, // Now sending HTML directly
+            image: state.featuredImage, 
+            published: publish, 
+            author: CONFIG.author,
+            contentFormat: 'html' // Flag to tell the worker this is HTML
+        };
         if (state.editingId) postData.id = state.editingId;
+        
         try {
             const response = await fetch(`${CONFIG.apiUrl}/posts`, {
                 method: 'POST',
@@ -381,7 +431,7 @@
                 state.editingId = null;
                 state.featuredImage = null;
                 elements.postTitle.value = '';
-                elements.postContent.value = '';
+                quillEditor.root.innerHTML = '';
                 resetImageUpload();
                 renderPosts();
                 showDashboard();
@@ -398,9 +448,12 @@
 
     function openPreview() {
         const title = elements.postTitle.value.trim();
-        const content = elements.postContent.value.trim();
-        if (!title && !content) { notify('Nothing to preview', 'error'); return; }
-        elements.previewContent.innerHTML = `<h1 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 20px;">${escapeHtml(title)}</h1>${markdownToHtml(content)}`;
+        const content = quillEditor.root.innerHTML;
+        const hasContent = content && content !== '<p><br></p>' && content.trim() !== '';
+        
+        if (!title && !hasContent) { notify('Nothing to preview', 'error'); return; }
+        
+        elements.previewContent.innerHTML = `<h1 style="font-family: var(--font-heading); font-size: 2rem; margin-bottom: 20px;">${escapeHtml(title)}</h1>${content}`;
         elements.previewModal.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
@@ -410,6 +463,7 @@
         document.body.style.overflow = '';
     }
 
+    // Keep this for backward compatibility with old posts
     function markdownToHtml(text) {
         let html = escapeHtml(text);
         html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
