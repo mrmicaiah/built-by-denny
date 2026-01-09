@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/blog.css">
     <link rel="stylesheet" href="admin.css">
+    
+    <!-- Quill Editor -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 </head>
 <body>
     <!-- LOGIN SCREEN -->
@@ -100,22 +103,9 @@
                     </div>
 
                     <div class="editor-section">
-                        <label class="editor-label" for="post-content">Content</label>
-                        <textarea id="post-content" class="editor-textarea" placeholder="Write your post here...
-
-You can use simple formatting:
-**bold text**
-_italic text_
-[link text](https://example.com)
-
-## Section Heading
-
-- Bullet point
-- Another point
-
-1. Numbered item
-2. Another item"></textarea>
-                        <p class="editor-help">Write naturally or use **bold**, _italic_, and [links](url). Use ## for headings.</p>
+                        <label class="editor-label">Content</label>
+                        <div id="quill-editor"></div>
+                        <p class="editor-help">Use the toolbar to format text, add links, and create lists.</p>
                     </div>
                 </div>
             </div>
@@ -183,6 +173,8 @@ _italic text_
         <div class="loading-spinner"></div>
     </div>
 
+    <!-- Quill Editor Script -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
