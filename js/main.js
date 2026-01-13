@@ -44,6 +44,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // Contact Form Handler - Sends through Courier
+// Includes anti-spam: honeypot field + timing check
 (function() {
     const CONFIG = {
         list: 'built-by-denny',
@@ -51,17 +52,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         funnel: 'website-contact-form',
         formSelector: '#contact-form',
         successMessage: 'Thanks for reaching out! Denny will be in touch shortly.',
-        errorMessage: 'Something went wrong. Please try again or call (256) 808-2100.'
+        errorMessage: 'Something went wrong. Please try again or call (256) 808-2100.',
+        minSubmitTime: 3000 // Minimum 3 seconds before submit (bots are instant)
     };
 
     const API_URL = 'https://email-bot-server.micaiah-tasks.workers.dev/api/subscribe';
+    
+    // Track when page loaded for timing check
+    let pageLoadTime = Date.now();
 
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector(CONFIG.formSelector);
         if (!form) return;
+        
+        // Reset load time when DOM is ready
+        pageLoadTime = Date.now();
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // ANTI-SPAM CHECK 1: Honeypot field
+            // If the hidden "website" field has any value, it's a bot
+            const honeypot = form.querySelector('#website');
+            if (honeypot && honeypot.value) {
+                // Fake success - don't let bot know it failed
+                fakeSuccess(form);
+                return;
+            }
+            
+            // ANTI-SPAM CHECK 2: Timing check
+            // If form submitted in less than 3 seconds, probably a bot
+            const timeSinceLoad = Date.now() - pageLoadTime;
+            if (timeSinceLoad < CONFIG.minSubmitTime) {
+                // Fake success - don't let bot know it failed
+                fakeSuccess(form);
+                return;
+            }
             
             const btn = form.querySelector('button[type="submit"]');
             const originalText = btn?.textContent;
@@ -121,6 +147,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             }
         });
     });
+
+    // Show fake success to bots so they think it worked
+    function fakeSuccess(form) {
+        const name = form.querySelector('#name')?.value || 'there';
+        form.innerHTML = `
+            <div class="form-success">
+                <svg viewBox="0 0 24 24" width="60" height="60" fill="#f5a623">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <h3>Message Sent!</h3>
+                <p>Thanks for reaching out, ${name}. Denny will be in touch with you shortly.</p>
+                <p class="form-success-note">Check your email for a confirmation.</p>
+            </div>
+        `;
+    }
 
     function showError(form, btn, originalText, message) {
         if (btn) {
