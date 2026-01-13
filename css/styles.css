@@ -21,6 +21,23 @@ h1, h2, h3 { font-family: var(--font-heading); font-weight: 400; line-height: 1.
 img { max-width: 100%; height: auto; display: block; }
 a { text-decoration: none; color: inherit; }
 
+/* Honeypot - Anti-spam field (invisible to humans, bots will fill it) */
+.form-hp {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+.form-hp input {
+    position: absolute;
+    left: -9999px;
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;
@@ -260,6 +277,7 @@ nav a:hover, nav a.active { color: var(--gold); }
     border-radius: 4px; 
     border-top: 4px solid var(--gold);
     max-width: 100%;
+    position: relative;
 }
 .form-row { display: flex; gap: 18px; }
 .form-group { margin-bottom: 18px; flex: 1; min-width: 0; }
@@ -879,7 +897,7 @@ footer { background: var(--navy-dark); padding: 50px 24px 25px; color: var(--whi
         font-size: 16px; /* Prevents iOS zoom */
     }
     .btn { padding: 14px 20px; }
-    .btn-full { padding: 16px 20px; }
+    .btn-full { width: 100%; }
     
     footer { padding: 40px 16px 20px; }
     .footer-inner { flex-direction: column; text-align: center; gap: 25px; }
