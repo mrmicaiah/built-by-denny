@@ -230,6 +230,11 @@
                             <label for="message">Tell Us About Your Project</label>
                             <textarea id="message" name="message" rows="3" placeholder="Describe your accessibility needs..."></textarea>
                         </div>
+                        <!-- Honeypot anti-spam field - do not fill -->
+                        <div class="form-hp" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
                         <button type="submit" class="btn btn-primary btn-full">Send Message</button>
                     </form>
                 </div>
